@@ -106,7 +106,7 @@ public class DashboardWindow implements ActionListener{
 		resetCourseButton.setFocusable(false);
 		resetCourseButton.addActionListener(this);
 		yearLevelLabel.setPreferredSize(new Dimension(160, 20));
-		yearLevelComboBox.setPreferredSize(new Dimension(150, 25));
+		yearLevelComboBox.setPreferredSize(new Dimension(175, 25));
 		resetYearLevelButton.setPreferredSize(new Dimension(80, 25));
 		resetYearLevelButton.setBackground(new Color(255, 51, 95));
 		resetYearLevelButton.setFocusable(false);
