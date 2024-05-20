@@ -13,7 +13,8 @@ import javax.swing.JTextField;
 public class RegisterWindow implements ActionListener{
 	
 	private JFrame frame = new JFrame("Registration");
-	private JLabel imageLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\rsz_university-of-cebu-logo.jpg"));
+	private JLabel ucLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\uc-logo.jpg"));
+	private JLabel ccsLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\ccs-logo.jpg"));
 	private JButton registerButton = new JButton("REGISTER");
 	private JButton resetButton = new JButton("RESET");
 	private JTextField usernameField = new JTextField();
@@ -28,7 +29,8 @@ public class RegisterWindow implements ActionListener{
 		
 		frame.setLayout(null);
 		
-		imageLabel.setBounds(10, 10, 265, 80);
+		ucLabel.setBounds(5, 15, 150, 80);
+		ccsLabel.setBounds(130, 5, 150, 95);
 		
 		userIDLabel.setBounds(25, 100, 100, 25);
 		usernameField.setBounds(25, 125, 235, 25);
@@ -57,7 +59,8 @@ public class RegisterWindow implements ActionListener{
 		loginButton.setFocusable(false);
 		loginButton.addActionListener(this);
 		
-		frame.add(imageLabel);
+		frame.add(ucLabel);
+		frame.add(ccsLabel);
 		frame.add(userIDLabel);
 		frame.add(passwordLabel);
 		frame.add(usernameField);
@@ -89,21 +92,37 @@ public class RegisterWindow implements ActionListener{
 			String userTemp = usernameField.getText();
 			String passwordTemp = String.valueOf(passwordField.getPassword());
 			String confirmPasswordTemp = String.valueOf(confirmPassField.getPassword());
+			boolean hasLetters = false;
+			boolean hasDigits = false;
 			
-			if(userTemp.equals("") || passwordTemp.equals("")) {
-				JOptionPane.showMessageDialog(frame, "Do not leave it blank", "ERROR", JOptionPane.ERROR_MESSAGE);
+			for(char c : passwordTemp.toCharArray()) {
+				if(Character.isLetter(c)) {
+					hasLetters = true;
+				}
+				if(Character.isDigit(c)) {
+					hasDigits = true;
+				}
+			}
+			
+			if(userTemp.isBlank() || passwordTemp.isBlank()) {
+				JOptionPane.showMessageDialog(frame, "Fields are blank", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
 				passwordField.setText("");
 				confirmPassField.setText("");
 			}
 			else if(userTemp.contains(" ") || passwordTemp.contains(" ")) {
-				JOptionPane.showMessageDialog(frame, "No spaces allowed", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Fields contain spaces", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
 				passwordField.setText("");
 				confirmPassField.setText("");
 			}
 			else if(passwordTemp.length() < 8) {
 				JOptionPane.showMessageDialog(frame, "Your password must be at least 8 characters long", "ERROR", JOptionPane.ERROR_MESSAGE);
+				passwordField.setText("");
+				confirmPassField.setText("");
+			}
+			else if(!hasLetters || !hasDigits) {
+				JOptionPane.showMessageDialog(frame, "Your password must be in alphanumeric", "ERROR", JOptionPane.ERROR_MESSAGE);
 				passwordField.setText("");
 				confirmPassField.setText("");
 			}
