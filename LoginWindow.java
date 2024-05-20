@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 public class LoginWindow implements ActionListener{
 
 	private JFrame frame = new JFrame("Login");
-	private JLabel imageLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\rsz_university-of-cebu-logo.jpg"));
+	private JLabel ucLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\uc-logo.jpg"));
+	private JLabel ccsLabel = new JLabel(new ImageIcon("C:\\Users\\natsu\\eclipse-workspace\\GUI FINALS\\src\\ccs-logo.jpg"));
 	private JButton loginButton = new JButton("LOGIN");
 	private JButton resetButton = new JButton("RESET");
 	private JTextField usernameField = new JTextField();
@@ -30,7 +31,8 @@ public class LoginWindow implements ActionListener{
 		
 		frame.setLayout(null);
 		
-		imageLabel.setBounds(10, 10, 265, 80);
+		ucLabel.setBounds(5, 15, 150, 80);
+		ccsLabel.setBounds(130, 5, 150, 95);
 		
 		userIDLabel.setBounds(25, 100, 75, 25);
 		usernameField.setBounds(25, 125, 235, 25);
@@ -55,7 +57,8 @@ public class LoginWindow implements ActionListener{
 		registerButton.setFocusable(false);
 		registerButton.addActionListener(this);
 		
-		frame.add(imageLabel);
+		frame.add(ucLabel);
+		frame.add(ccsLabel);
 		frame.add(userIDLabel);
 		frame.add(passwordLabel);
 		frame.add(usernameField);
