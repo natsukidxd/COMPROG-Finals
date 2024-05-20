@@ -19,36 +19,36 @@ import javax.swing.table.DefaultTableModel;
 
 public class DashboardWindow implements ActionListener{
 
-	JFrame frame = new JFrame("Dashboard");
-	JLabel studentNameLabel = new JLabel("Student name: ");
-	JTextField studentNameField = new JTextField();
-	JButton studentNameButton = new JButton("Add Student");
-	JButton studentEditButton = new JButton("Edit Student");
-	JPanel northPanel = new JPanel();
+	private JFrame frame = new JFrame("Dashboard");
+	private JLabel studentNameLabel = new JLabel("Student name: ");
+	private JTextField studentNameField = new JTextField();
+	private JButton studentNameButton = new JButton("Add Student");
+	private JButton studentEditButton = new JButton("Edit Student");
+	private JPanel northPanel = new JPanel();
 	
-	JLabel nameLabel = new JLabel("Selected Student Name: ");
-	JTextField nameField = new JTextField(15);
-	JLabel ageLabel = new JLabel("Age: ");
-	JTextField ageField = new JTextField(15);
-	JLabel addressLabel = new JLabel("Address: ");
-	JTextField addressField = new JTextField(15);
-	JLabel courseLabel = new JLabel("Course: ");
-	JTextField courseField = new JTextField(15);
-	JLabel yearLevelLabel = new JLabel("Year Level: "); 
-	JComboBox yearLevelComboBox = new JComboBox(new String[]{"No Year Level", "1st Year", "2nd Year", "3rd Year", "4th Year"});;
-	JButton resetNameButton = new JButton("Delete");
-	JButton resetAgeButton = new JButton("Delete");
-	JButton resetAddressButton = new JButton("Delete");
-	JButton resetCourseButton = new JButton("Delete");
-	JButton resetYearLevelButton = new JButton("Delete");
-	JButton updateButton = new JButton("Update changes");
-	JPanel leftPanel = new JPanel();
+	private JLabel nameLabel = new JLabel("Selected Student Name: ");
+	private JTextField nameField = new JTextField(15);
+	private JLabel ageLabel = new JLabel("Age: ");
+	private JTextField ageField = new JTextField(15);
+	private JLabel addressLabel = new JLabel("Address: ");
+	private JTextField addressField = new JTextField(15);
+	private JLabel courseLabel = new JLabel("Course: ");
+	private JTextField courseField = new JTextField(15);
+	private JLabel yearLevelLabel = new JLabel("Year Level: "); 
+	private JComboBox yearLevelComboBox = new JComboBox(new String[]{"No Year Level", "1st Year", "2nd Year", "3rd Year", "4th Year"});
+	private JButton resetNameButton = new JButton("Delete");
+	private JButton resetAgeButton = new JButton("Delete");
+	private JButton resetAddressButton = new JButton("Delete");
+	private JButton resetCourseButton = new JButton("Delete");
+	private JButton resetYearLevelButton = new JButton("Delete");
+	private JButton updateButton = new JButton("Update changes");
+	private JPanel leftPanel = new JPanel();
 	
-	JTable studentTable = new JTable();
-	DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Name", "Age", "Address", "Course", "Year Level"}, 0);
-	JPanel centerPanel = new JPanel();
+	private JTable studentTable = new JTable();
+	private DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Name", "Age", "Address", "Course", "Year Level"}, 0);
+	private JPanel centerPanel = new JPanel();
 	
-	int editSelectedRow;
+	private int editSelectedRow;
 	
 	public DashboardWindow() {
 
@@ -139,6 +139,7 @@ public class DashboardWindow implements ActionListener{
 		frame.add(leftPanel, BorderLayout.WEST);
 		
 		centerPanel.setLayout(new BorderLayout());
+		studentTable.setDefaultEditor(Object.class, null);
 		studentTable.setModel(tableModel);
 		studentTable.setBackground(Color.WHITE);
 		centerPanel.add(new JScrollPane(studentTable), BorderLayout.CENTER);
@@ -169,7 +170,7 @@ public class DashboardWindow implements ActionListener{
 			boolean isNameExisted = false;
 			
 			for(int i = 0; i < tableModel.getColumnCount()-1; i++) {
-				if(studentName.contains(tableModel.getValueAt(i, 0).toString())) {
+				if(studentName.toLowerCase().contains(tableModel.getValueAt(i, 0).toString().toLowerCase())) {
 					isNameExisted = true; 
 				}
 			}
