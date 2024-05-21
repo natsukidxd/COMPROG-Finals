@@ -71,7 +71,7 @@ public class RegisterWindow implements ActionListener{
 		frame.add(resetButton);
 		frame.add(registerButton);
 		
-		frame.getRootPane().setDefaultButton(loginButton);
+		frame.getRootPane().setDefaultButton(registerButton);
 		frame.getContentPane().setBackground(Color.white);
 		frame.setSize(300, 450);
 		frame.setResizable(false);
