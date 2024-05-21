@@ -67,6 +67,7 @@ public class LoginWindow implements ActionListener{
 		frame.add(resetButton);
 		frame.add(registerButton);
 		
+		frame.getRootPane().setDefaultButton(loginButton);
 		frame.getContentPane().setBackground(Color.white);
 		frame.setSize(300, 450);
 		frame.setResizable(false);
@@ -99,16 +100,19 @@ public class LoginWindow implements ActionListener{
 			if(userTemp.isBlank() || passwordTemp.isBlank()) {
 				JOptionPane.showMessageDialog(frame, "Fields are blank. Try again", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
+				usernameField.requestFocusInWindow();
 				passwordField.setText("");
 			}
 			else if(userTemp.contains(" ")) {
 				JOptionPane.showMessageDialog(frame, "Invalid username. No spaces allowed", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
+				usernameField.requestFocusInWindow();
 				passwordField.setText("");
 			}
 			else if(passwordTemp.contains(" ")) {
 				JOptionPane.showMessageDialog(frame, "Invalid password. No spaces allowed", "ERROR", JOptionPane.ERROR_MESSAGE);
 				passwordField.setText("");
+				passwordField.requestFocusInWindow();
 			}
 			else {
 				
@@ -122,11 +126,13 @@ public class LoginWindow implements ActionListener{
 					else {
 						JOptionPane.showMessageDialog(frame, "Incorrect password", "ERROR", JOptionPane.ERROR_MESSAGE);
 						passwordField.setText("");
+						passwordField.requestFocusInWindow();
 					}
 				}
 				else {
 					JOptionPane.showMessageDialog(frame, "Username was not found", "ERROR", JOptionPane.ERROR_MESSAGE);
 					usernameField.setText("");
+					usernameField.requestFocusInWindow();
 					passwordField.setText("");
 				}
 			}
@@ -134,6 +140,7 @@ public class LoginWindow implements ActionListener{
 		
 		if (e.getSource() == resetButton) {
 			usernameField.setText("");
+			usernameField.requestFocusInWindow();
 			passwordField.setText("");
 		}
 	}
