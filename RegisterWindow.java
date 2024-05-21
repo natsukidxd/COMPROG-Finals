@@ -71,6 +71,7 @@ public class RegisterWindow implements ActionListener{
 		frame.add(resetButton);
 		frame.add(registerButton);
 		
+		frame.getRootPane().setDefaultButton(loginButton);
 		frame.getContentPane().setBackground(Color.white);
 		frame.setSize(300, 450);
 		frame.setResizable(false);
@@ -107,28 +108,33 @@ public class RegisterWindow implements ActionListener{
 			if(userTemp.isBlank() || passwordTemp.isBlank()) {
 				JOptionPane.showMessageDialog(frame, "Fields are blank", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
+				usernameField.requestFocusInWindow();
 				passwordField.setText("");
 				confirmPassField.setText("");
 			}
 			else if(userTemp.contains(" ") || passwordTemp.contains(" ")) {
 				JOptionPane.showMessageDialog(frame, "Fields contain spaces", "ERROR", JOptionPane.ERROR_MESSAGE);
 				usernameField.setText("");
+				usernameField.requestFocusInWindow();
 				passwordField.setText("");
 				confirmPassField.setText("");
 			}
 			else if(passwordTemp.length() < 8) {
 				JOptionPane.showMessageDialog(frame, "Your password must be at least 8 characters long", "ERROR", JOptionPane.ERROR_MESSAGE);
 				passwordField.setText("");
+				passwordField.requestFocusInWindow();
 				confirmPassField.setText("");
 			}
 			else if(!hasLetters || !hasDigits) {
 				JOptionPane.showMessageDialog(frame, "Your password must be in alphanumeric", "ERROR", JOptionPane.ERROR_MESSAGE);
 				passwordField.setText("");
+				passwordField.requestFocusInWindow();
 				confirmPassField.setText("");
 			}
 			else if(!passwordTemp.equals(confirmPasswordTemp)) {
 				JOptionPane.showMessageDialog(frame, "Your password do not match", "ERROR", JOptionPane.ERROR_MESSAGE);
 				confirmPassField.setText("");
+				confirmPassField.requestFocusInWindow();
 			}
 			else {
 				new LoginWindow().addLoginCreds(userTemp, passwordTemp);
@@ -138,6 +144,7 @@ public class RegisterWindow implements ActionListener{
 		
 		if (e.getSource() == resetButton) {
 			usernameField.setText("");
+			usernameField.requestFocusInWindow();
 			passwordField.setText("");
 			confirmPassField.setText("");
 		}
