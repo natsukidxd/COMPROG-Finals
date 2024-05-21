@@ -49,6 +49,11 @@ public class DashboardWindow implements ActionListener{
 	private JPanel centerPanel = new JPanel();
 	
 	private int editSelectedRow;
+	private String origNameField;
+	private String origAgeField;
+	private String origAddressField;
+	private String origCourseField;
+	private String origYearLevel;
 	
 	public DashboardWindow() {
 
@@ -154,6 +159,7 @@ public class DashboardWindow implements ActionListener{
 		tableModel.addRow(new Object[]{"RJ Roble", "19", "Sambag 1, Cebu city", "BSIT", "1st Year"});
 		frame.add(centerPanel, BorderLayout.CENTER);
 		
+		frame.getRootPane().setDefaultButton(studentNameButton);
 		frame.setSize(950, 550);
 		frame.setResizable(false);
 		frame.setVisible(true);
@@ -172,20 +178,20 @@ public class DashboardWindow implements ActionListener{
 			for(int i = 0; i < tableModel.getColumnCount()-1; i++) {
 				if(studentName.toLowerCase().contains(tableModel.getValueAt(i, 0).toString().toLowerCase())) {
 					isNameExisted = true; 
+					break;
 				}
 			}
 			if(studentName.isBlank()) {
 				JOptionPane.showMessageDialog(frame, "Student name is empty. Try again", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 			else if(isNameExisted) {
-				JOptionPane.showMessageDialog(frame, "Student name is already existed", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Student name already existed", "ERROR", JOptionPane.ERROR_MESSAGE);
 				studentNameField.setText("");
 			}
 			else {
 				tableModel.addRow(new Object[]{studentName, "", "", "", "No Year Level"});
 				studentNameField.setText("");
 			}
-			
 		}
 		if(e.getSource() == studentEditButton) {
 			
@@ -195,6 +201,8 @@ public class DashboardWindow implements ActionListener{
 				JOptionPane.showMessageDialog(frame, "Please select the student you want to edit", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
+				frame.getRootPane().setDefaultButton(updateButton);
+				
 				nameField.setEnabled(true);
 				ageField.setEnabled(true);
 				addressField.setEnabled(true);
@@ -207,17 +215,22 @@ public class DashboardWindow implements ActionListener{
 				resetYearLevelButton.setEnabled(true);
 				updateButton.setEnabled(true);
 				
+				origNameField = tableModel.getValueAt(editSelectedRow, 0).toString();
+				origAgeField = tableModel.getValueAt(editSelectedRow, 1).toString();
+				origAddressField = tableModel.getValueAt(editSelectedRow, 2).toString();
+				origCourseField = tableModel.getValueAt(editSelectedRow, 3).toString();
+				origYearLevel = tableModel.getValueAt(editSelectedRow, 4).toString();
+				
 				nameField.setText(tableModel.getValueAt(editSelectedRow, 0).toString());
-				ageField.setText(tableModel.getValueAt(editSelectedRow, 1).toString());
-				addressField.setText(tableModel.getValueAt(editSelectedRow, 2).toString());
-				courseField.setText(tableModel.getValueAt(editSelectedRow, 3).toString());
+				ageField.setText(origAgeField);
+				addressField.setText(origAddressField);
+				courseField.setText(origCourseField);
 				
 				for(int i = 0; i < yearLevelComboBox.getItemCount(); i++) {
-					if(yearLevelComboBox.getItemAt(i).toString().contains(tableModel.getValueAt(editSelectedRow, 4).toString())) {
+					if(yearLevelComboBox.getItemAt(i).toString().contains(origYearLevel)) {
 						yearLevelComboBox.setSelectedIndex(i);
 					}
 				}
-				
 			}
 		}
 		if(e.getSource() == resetNameButton) {
@@ -266,14 +279,16 @@ public class DashboardWindow implements ActionListener{
 				ageField.setText("");
 			}
 			else {
-				String editedInfo = "\n\nName: " + nameField.getText() +
-									"\nAge: " + ageField.getText() +
+				String editedInfo = "\n\nName: " + nameField.getText() + 
+									"\nAge: " + ageField.getText() + 
 									"\nAddress: " + addressField.getText() +
 									"\nCourse: " + courseField.getText() +
 									"\nYear Level: " + yearLevelComboBox.getSelectedItem().toString();
 				
 				int confirmResult = JOptionPane.showConfirmDialog(frame, "Are you sure you want to make these changes? " + editedInfo, "Confirmation", JOptionPane.YES_NO_OPTION);
 				if(confirmResult == JOptionPane.YES_OPTION) {
+					frame.getRootPane().setDefaultButton(studentNameButton);
+					
 					tableModel.setValueAt(nameField.getText(), editSelectedRow, 0);
 					tableModel.setValueAt(ageField.getText(), editSelectedRow, 1);
 					tableModel.setValueAt(addressField.getText(), editSelectedRow, 2);
@@ -281,16 +296,30 @@ public class DashboardWindow implements ActionListener{
 					tableModel.setValueAt(yearLevelComboBox.getSelectedItem().toString(), editSelectedRow, 4);
 					
 					nameField.setEnabled(false);
+					nameField.setText("");
 					ageField.setEnabled(false);
+					ageField.setText("");
 					addressField.setEnabled(false);
+					addressField.setText("");
 					courseField.setEnabled(false);
+					courseField.setText("");
 					yearLevelComboBox.setEnabled(false);
+					yearLevelComboBox.setSelectedIndex(0);
 					resetNameButton.setEnabled(false);
 					resetAgeButton.setEnabled(false);
 					resetAddressButton.setEnabled(false);
 					resetCourseButton.setEnabled(false);
 					resetYearLevelButton.setEnabled(false);
 					updateButton.setEnabled(false);
+				}
+				else {
+					frame.getRootPane().setDefaultButton(studentNameButton);
+					
+					nameField.setText(origNameField);
+					ageField.setText(origAgeField);
+					addressField.setText(origAddressField);
+					courseField.setText(origCourseField);
+					yearLevelComboBox.setSelectedItem(origYearLevel);
 				}
 			}
 		}
